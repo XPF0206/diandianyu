@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>雨滴效果</title>
+	<style>
+	body,html{
+		width:100%;
+		height:100%;
+	}
+	body{
+		margin: 0;
+		background: #000;
+
+	}
+
+	</style>
+	<script>
+	// (Math.random()*50)
+	window.onload=function(){
+		var cw=document.documentElement.clientWidth;   //获取浏览器的宽度
+		var ch=document.documentElement.clientHeight;   //获取浏览器的高度
+		var rain=[];
+		function createRain(){
+			for (var i = 0; i < 500; i++) {
+				var div=document.createElement("div");
+				div.style.cssText="width:1px;height:10px;background:#fff;webkitFlter:blur(10px);position: absolute;left:"+(50+Math.random()*(cw-100))+"px;top:"+(-50-Math.random()*50)+"px;transition:transform 2s ease-in "+Math.random()*5+"s";
+				rain.push(div);
+				document.body.appendChild(div);
+			};
+		}
+		createRain();
+		setTimeout(function(){
+			for (var i = 0; i < rain.length; i++) {
+				rain[i].style.transform="translateY("+(ch+100)+"px)";
+				rain[i].addEventListener("transitionend",remove);
+				// rain[i].addEventListener("webkitTransitionEnd",remove);
+				function remove(){
+					this.style.display="none";
+					this.style.transition="none";
+					this.style.transform="translateY(40px)";
+					var that=this;
+					that.style.display="block";
+					setTimeout(function(){					
+						that.style.transition="transform 2s ease-in "+Math.random()*5+"s";
+						that.style.transform="translateY("+(ch+100)+"px)";
+					},0)
+				}
+			};
+		},0)
+
+		
+	}
+
+
+
+
+	</script>
+</head>
+<body>
+</body>
+</html>
